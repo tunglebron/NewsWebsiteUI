@@ -12,13 +12,20 @@
   padding: 0; }
 
 body {
-  font-family: "Work Sans", sans-serif; }
+  /*font-family: "Work Sans", sans-serif;*/ 
+  font-family: "Ubuntu", sans-serif;
+}
 
 .ubuntu-fonts {
   font-family: "Ubuntu", sans-serif; }
 
-h1,
-h2,
+h1 {
+  font-size: 20px;
+}
+h2 {
+  font-size: 30px;  
+  font-weight: 500;
+}
 h3,
 h4,
 h5,
@@ -226,7 +233,7 @@ img {
   border-radius: 50%; }
 
 #scrollUp {
-  background-color: #232323;
+  background-color: CadetBlue;
   border-radius: 50%;
   bottom: 60px;
   right: 60px;
@@ -314,6 +321,7 @@ img {
   height: auto;
   margin-top: 0px;
   left: 0;
+  font-family: "inherit";
   z-index: 300;
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms; 
@@ -1299,4 +1307,37 @@ img.pageLogo {
     margin-left: 20px;
     padding-left: 15px;
     float: left;
+}
+
+.headline {
+
+}
+
+img.img-headline {
+  position: absolute;
+}
+
+.thumb {
+  
+  overflow: hidden;
+  height: 0;
+  position: relative;
+  width: 100%;
+  background: #f4f4f4;
+}
+
+.thumb-5x3 {
+  padding-bottom: 20px;
+}
+
+.thumb img {
+  width: 100%;
+  float: left;
+  object-fit: cover;
+}
+
+.title-news {
+  font-family: "Merriweather",serif;
+  font-size: 20px;
+  font-weight: 700;
 }
