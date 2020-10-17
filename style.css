@@ -1,3 +1,4 @@
+/* This is the file */
 @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Work+Sans:300,400,500,600,700");
 /* :: Import All CSS */
 @import url(css/bootstrap.min.css);
@@ -325,7 +326,7 @@ img {
   z-index: 300;
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms; 
-  background-color: CadetBlue;
+  background-color: teal;
 }
   /**/
   .logo_border {
@@ -365,7 +366,7 @@ img {
         .header-area .navbar .navbar-nav {
           margin-right: 30px; } }
   .header-area.sticky {
-    background-color: CadetBlue;
+    background-color: Teal;
     margin-top: 0;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); }
   .header-area.sticky .navbar {
@@ -648,7 +649,7 @@ img {
       font-size: 18px;
       color: #ffffff; }
   .single-blog-post.post-style-4 {
-    margin-bottom: 5px; }
+    margin-bottom: 15px; }
     @media only screen and (max-width: 767px) {
       .single-blog-post.post-style-4 {
         -ms-flex-wrap: wrap;
@@ -1236,7 +1237,7 @@ textarea:focus ~ .highlight {
     transform: rotate(-45deg) scaleX(0) translateY(-10px); } }
 /* Footer Area CSS */
 .footer-area {
-  background-color: CadetBlue;
+  background-color: teal;
   padding: 70px 0;
   position: relative;
   z-index: 1; }
@@ -1313,16 +1314,11 @@ img.pageLogo {
     float: left;
 }
 
-.headline {
-
-}
-
 img.img-headline {
   position: absolute;
 }
 
-.thumb {
-  
+.thumb { 
   overflow: hidden;
   height: 0;
   position: relative;
@@ -1336,6 +1332,7 @@ img.img-headline {
 
 .thumb img {
   width: 100%;
+  max-height: 300;
   float: left;
   object-fit: cover;
 }
@@ -1345,3 +1342,19 @@ img.img-headline {
   font-size: 20px;
   font-weight: 700;
 }
+
+.headline-text {
+  padding-top: 15px;
+  background-color: aliceblue;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  height: 70px;
+  word-wrap: break-word;
+}
+
+.headline-text > p {
+  font-size: 0.5vh;
+}
+
+
+
