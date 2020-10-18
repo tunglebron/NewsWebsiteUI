@@ -4,15 +4,7 @@ require  "lib/db_connect.php";
 require "lib/db_function.php";
 ?>
 
-<?php
-//  Lấy thông tin 'idTL'
-if (isset($_GET['idTL'])) {
-    $idTL = $_GET['idTL'];
-    settype($idTL, "int");
-} else {
-    $idTL = 1;
-}
-?>
+
 
 <?php
 // Lấy 5 tin nổi bật
@@ -29,7 +21,7 @@ $row_tenTheLoai = mysqli_fetch_array($tenTheLoai);
 
 <?php
 // Lấy  tin theo thể loại
-$tinTheoTL = tinTheo_TheLoai($idTL);
+// $tinTheoTL = tinTheo_TheLoai($idTL);
 // danh sách Menu
 $dsMenu = DSMenu();
 ?>
@@ -47,7 +39,14 @@ if (isset($_GET['trang'])) {
 }
 $from = ($trang - 1) * $sotin1trang;
 //Tin theo 1 trang
-$tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
+// $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
+if (isset($_GET['search'])) {
+    $tuKhoa = $_GET['search'];
+    // settype($trang, 'int');
+} else {
+    $tuKhoa = 'Hà Nội';
+}
+$tinTimKiem = timKiem_PhanTrang($tuKhoa, $from, $sotin1trang);
 ?>
 
 
@@ -122,7 +121,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                                 <form action="search-page.php" method="GET" target="_self">
                                     <input type="text" id="search" placeholder="Tìm kiếm tin tức" name="search" value="" require>
                                     <div id="close-icon" style="display: none;" class=""></div>
-                                    <input class="d-none" type="submit" value="" >
+                                    <input class="d-none" type="submit" value="">
                                     <!-- tạo tìm kiếm search='timkiem' trên url -- ?name=value>
                                     <!-- <input type="hidden" name="search" value="timkiem"> -->
                                 </form>
@@ -144,7 +143,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                         <!-- Catagory Area -->
                         <div class="world-catagory-area">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="title"><?php echo $row_tenTheLoai['TenTL'] ?></li>
+                                <li class="title">Tìm kiếm: "<?php echo $tuKhoa ?>"</li>
                             </ul>
 
                             <div class="tab-content" id="myTabContent">
@@ -152,24 +151,24 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                                     <!-- Single Blog Post -->
                                     <!-- Nội dung -->
                                     <?php
-                                    while ($row_tinTheoTLPhanTrang = mysqli_fetch_array($tinTheoTrang)) {
+                                    while ($row_tinTimKiem = mysqli_fetch_array($tinTimKiem)) {
                                     ?>
 
                                         <div class="single-blog-post post-style-4 d-flex align-items-center">
                                             <!-- Post Thumbnail -->
                                             <div class="post-thumbnail">
-                                                <img src="upload/tintuc/<?php echo $row_tinTheoTLPhanTrang['urlHinh'] ?>" alt="" style="max-height: 150px;min-height: 120px;  ">
+                                                <img src="upload/tintuc/<?php echo $row_tinTimKiem['urlHinh'] ?>" alt="" style="max-height: 150px;min-height: 120px;  ">
 
                                             </div>
                                             <!-- Post Content -->
                                             <div class="post-content">
-                                                <a href="single-blog.php?idTin=<?php echo $row_tinTheoTLPhanTrang['idTin'] ?>" class="headline">
-                                                    <h5><?php echo $row_tinTheoTLPhanTrang['TieuDe'] ?></h5>
+                                                <a href="single-blog.php?idTin=<?php echo $row_tinTimKiem['idTin'] ?>" class="headline">
+                                                    <h5><?php echo $row_tinTimKiem['TieuDe'] ?></h5>
                                                 </a>
-                                                <p> <?php echo $row_tinTheoTLPhanTrang['TomTat'] ?></p>
+                                                <p> <?php echo $row_tinTimKiem['TomTat'] ?></p>
                                                 <!-- Post Meta -->
                                                 <div class="post-meta">
-                                                    <p><a href="#" class="post-date"><?php echo $row_tinTheoTLPhanTrang['Ngay'] ?>.  Views: <?php echo $row_tinTheoTLPhanTrang['SoLanXem'] ?></a></p>
+                                                    <p><a href="#" class="post-date"><?php echo $row_tinTimKiem['Ngay'] ?>. Views: <?php echo $row_tinTimKiem['SoLanXem'] ?></a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -372,7 +371,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                                     $idTL = 1;
                                 }
                                 //  Lấy thông tin 'idTL'
-                                $tinXemNhieu = tinXemNhieu_category($idTL);
+                                $tinXemNhieu = tinXemNhieu_search();
                                 while ($row_tinXemNhieu = mysqli_fetch_array($tinXemNhieu)) {
                                 ?>
 
@@ -406,7 +405,10 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                 <div class="col-12">
                     <div class="load-more-btn mt-50 text-center">
                         <!-- <a href="catagory.php?idTL=5&amp;trang=5" class="btn world-btn">Trang Trước</a> -->
-                        <a href="catagory.php?idTL=<?php echo $row_tenTheLoai['idTL'] ?>&trang=<?php echo ($trang + 1) ?>" class="btn world-btn">Xem thêm</a>
+                        <a href="search-page.php?search=<?php echo $tuKhoa ?>&trang=<?php echo ($trang + 1) ?>" class="btn world-btn">Xem thêm</a>
+
+                        
+
                     </div>
                 </div>
             </div>

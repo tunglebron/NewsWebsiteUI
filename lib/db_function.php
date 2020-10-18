@@ -40,6 +40,16 @@ function TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang)
     return mysqli_query($connect, $qr);
 }
 
+function timKiem_PhanTrang($tukhoa,$from,$sotin1trang){
+    global $connect ;
+    $qr = "SELECT * FROM tin
+    WHERE TieuDe REGEXP '$tukhoa'
+    ORDER BY idTin DESC 
+    LIMIT $from, $sotin1trang" ;  
+    // REGEXP tìm từ có từ khóa 
+    return mysqli_query($connect,$qr);
+}
+
 function tenTheLoai($idTL)
 {
     global $connect;
@@ -85,5 +95,14 @@ function tinXemNhieu_single($idTL)
     WHERE idTL = '$idTL'  
     ORDER BY SoLanXem  DESC
     LIMIT 2";
+    return mysqli_query($connect, $qr);
+}
+
+function tinXemNhieu_search()
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin`   
+    ORDER BY SoLanXem  DESC
+    LIMIT 5";
     return mysqli_query($connect, $qr);
 }

@@ -89,10 +89,12 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                             </ul>
                             <!-- Tìm kiếm -->
                             <div id="search-wrapper" class="">
-                                <form action="#">
-                                    <input type="text" id="search" placeholder="Tìm kiếm tin tức">
+                                <form action="search-page.php" method="GET" target="_self">
+                                    <input type="text" id="search" placeholder="Tìm kiếm tin tức" name="search" value="" require>
                                     <div id="close-icon" style="display: none;" class=""></div>
-                                    <input class="d-none" type="submit" value="">
+                                    <input class="d-none" type="submit" value="" >
+                                    <!-- tạo tìm kiếm search='timkiem' trên url -- ?name=value>
+                                    <!-- <input type="hidden" name="search" value="timkiem"> -->
                                 </form>
                             </div>
                             <!-- Tìm kiếm -->
