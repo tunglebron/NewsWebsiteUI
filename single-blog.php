@@ -10,11 +10,9 @@ if (isset($_GET['idTin'])) {
     settype($idTin, 'int');
 } else {
     $idTin = 1585;
-
-
-    // Cập nhật lượt xem tin
-    CapNhatSoLanXemTin($idTin);
 }
+// Cập nhật lượt xem tin
+CapNhatSoLanXemTin($idTin);
 ?>
 
 
@@ -89,6 +87,15 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                                 <!-- Menu -->
                                 </li>
                             </ul>
+                            <!-- Tìm kiếm -->
+                            <div id="search-wrapper" class="">
+                                <form action="#">
+                                    <input type="text" id="search" placeholder="Tìm kiếm tin tức">
+                                    <div id="close-icon" style="display: none;" class=""></div>
+                                    <input class="d-none" type="submit" value="">
+                                </form>
+                            </div>
+                            <!-- Tìm kiếm -->
                         </div>
                     </nav>
                 </div>
@@ -110,25 +117,19 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                             <h6></h6>
                             <!-- <blockquote class="mb-30"> -->
                             <div class="post-thumbnail">
-                                <img id='viet' src="upload/tintuc/<?php echo $row_chiTietTin['urlHinh'] ?>" alt=""
-                                style="text-align: center;
+                                <img id='viet' src="upload/tintuc/<?php echo $row_chiTietTin['urlHinh'] ?>" alt="" style="text-align: center;
                             width:600px;
-                            height: 400px; "
-                                >
+                            height: 400px; ">
                             </div>
                             <!-- </blockquote> -->
                             <br>
                             <h6 style="color: #3D2B1F; font-family: Arial, Helvetica, sans-serif;"><?php echo $row_chiTietTin['Content'] ?> </h6>
                             <!-- Post Tags -->
-                            <ul class="post-tags">
-                                <li><a href="#">Manual</a></li>
-                                <li><a href="#">Liberty</a></li>
-                                <li><a href="#">Recommendations</a></li>
-                                <li><a href="#">Interpritation</a></li>
-                            </ul>
+
+
                             <!-- Post Meta -->
                             <div class="post-meta second-part">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                                <p><a href="#" class="post-author"></a>  <a href="#" class="post-date"><?php echo $row_chiTietTin['Ngay'] ?>. Views: <?php echo $row_chiTietTin['SoLanXem'] ?></a></p>
                             </div>
                         </div>
                     </div>
@@ -139,79 +140,41 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                     <div class="post-sidebar-area mb-100">
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Tin tức mới nhất</h5>
+                            <h5 class="title">Tin tức nổi bật</h5>
                             <div class="widget-content">
                                 <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b11.jpg" alt=""></a>
+                                <?php
+                                $tinNoiBat = tinNoiBat();
+                                while ($row_tinNoiBat = mysqli_fetch_array($tinNoiBat)) {
+
+                                ?>
+
+                                    <!-- Single Blog Post -->
+                                    <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
+                                        <!-- Post Thumbnail -->
+                                        <div class="post-thumbnail">
+                                            <img src="upload/tintuc/<?php echo $row_tinNoiBat['urlHinh'] ?>" alt="">
+                                        </div>
+                                        <!-- Post Content -->
+                                        <div class="post-content">
+                                            <a href="single-blog.php?idTin=<?php echo $row_tinNoiBat['idTin'] ?>" class="headline">
+                                                <h5 class="mb-0"><?php echo $row_tinNoiBat['TieuDe'] ?></h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
+                                    <!-- Single Blog Post -->
+
+                                <?php
+                                }
+                                ?>
                                 <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b13.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b14.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b10.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b12.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
 
                         <!-- Kết nối mạng xã hội -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Stay Connected</h5>
+                            <h5 class="title">Connected</h5>
                             <div class="widget-content">
                                 <div class="social-area d-flex justify-content-between">
                                     <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
@@ -227,38 +190,34 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
 
                         <!-- Tin nổi bật -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Today’s Pick</h5>
+                            <h5 class="title">Tin xem nhiều</h5>
                             <div class="widget-content">
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post todays-pick">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b22.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content px-0 pb-0">
-                                        <a href="#" class="headline">
-                                            <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
+                               <!-- Single Blog Post -->
+                               <?php
+                                //  Lấy thông tin 'idTL'
+                                $idTL = $row_chiTietTin['idTL'];
+                                //  Lấy thông tin 'idTL'
+                                $tinXemNhieu = tinXemNhieu_single($idTL);
+                                while ($row_tinXemNhieu = mysqli_fetch_array($tinXemNhieu)) {
+                                ?>
 
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post todays-pick">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b22.jpg" alt="">
+                                    <div class="single-blog-post todays-pick">
+                                        <!-- Post Thumbnail -->
+                                        <div class="post-thumbnail">
+                                            <img src="upload/tintuc/<?php echo $row_tinXemNhieu['urlHinh'] ?>" alt="">
+                                        </div>
+                                        <!-- Post Content -->
+                                        <div class="post-content px-0 pb-0">
+                                            <a href="single-blog.php?idTin=<?php echo $row_tinXemNhieu['idTin'] ?>" class="headline">
+                                                <h5><?php echo $row_tinXemNhieu['TieuDe'] ?></h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content px-0 pb-0">
-                                        <a href="#" class="headline">
-                                            <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
 
+                                <?php
+                                }
+                                ?>
+                                <!-- Single Blog Post -->
 
                             </div>
                         </div>
@@ -268,159 +227,11 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                 </div>
             </div>
 
-            <!-- ============== Related Post ============== -->
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b1.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="catagory.php">travel</a></div>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="single-post.php" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b2.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b7.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                            <!-- Video Button -->
-                            <a href="https://www.youtube.com/watch?v=IhnqEwFSJRg" class="video-btn"><i class="fa fa-play"></i></a>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b1.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="catagory.php">travel</a></div>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="single-post.php" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b2.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b7.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                            <!-- Video Button -->
-                            <a href="https://www.youtube.com/watch?v=IhnqEwFSJRg" class="video-btn"><i class="fa fa-play"></i></a>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ============== Related Post ============== -->
 
             <div class="row">
                 <div class="col-12 col-lg-8">
                     <div class="post-a-comment-area mt-70">
-                        <h5>Get in Touch</h5>
+                        <h5>Bình luận</h5>
                         <!-- Contact Form -->
                         <form action="#" method="post">
                             <div class="row">
@@ -449,7 +260,7 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn world-btn">Post comment</button>
+                                    <button type="submit" class="btn world-btn">Đăng bình luận</button>
                                 </div>
                             </div>
                         </form>
@@ -466,10 +277,10 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                                 <div class="comment-content">
                                     <!-- Comment Meta -->
                                     <div class="comment-meta d-flex align-items-center justify-content-between">
-                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                        <a href="#" class="comment-reply btn world-btn">Reply</a>
+                                        <p><a href="#" class="post-author">Ngọc Tùng</a> : <a href="#" class="post-date">10 tháng 10 năm 2020 9:48 am</a></p>
+                                        <a href="#" class="comment-reply btn world-btn">Trả lời</a>
                                     </div>
-                                    <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
+                                    <p>Một bài viết rất hay và bổ ích.</p>
                                 </div>
                                 <ol class="children">
                                     <li class="single_comment_area">
@@ -477,10 +288,10 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                                         <div class="comment-content">
                                             <!-- Comment Meta -->
                                             <div class="comment-meta d-flex align-items-center justify-content-between">
-                                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                                <a href="#" class="comment-reply btn world-btn">Reply</a>
+                                                <p><a href="#" class="post-author">Văn Trường</a> : <a href="#" class="post-date">10 tháng 10 năm 2020 10:48 am</a></p>
+                                                <a href="#" class="comment-reply btn world-btn">Trả lời</a>
                                             </div>
-                                            <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
+                                            <p>Không những bài viết hay mà 'Giao diện' còn đẹp. Thực sự thích Website này quá.</p>
                                         </div>
                                     </li>
                                 </ol>
@@ -492,17 +303,178 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                                 <div class="comment-content">
                                     <!-- Comment Meta -->
                                     <div class="comment-meta d-flex align-items-center justify-content-between">
-                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                        <a href="#" class="comment-reply btn world-btn">Reply</a>
+                                        <p><a href="#" class="post-author">Anh Vũ</a> : <a href="#" class="post-date">10 tháng 10 năm 2020 11:49 am</a></p>
+                                        <a href="#" class="comment-reply btn world-btn">Trả lời</a>
                                     </div>
-                                    <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
+                                    <p>Thực sự ấn tượng với "Giao diện" của web. Perfect!</p>
                                 </div>
                             </li>
+                            <!-- Xem thêm -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="load-more-btn mt-50 text-center">
 
+                                        <a href="#" class="btn world-btn">Xem thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Xem thêm -->
                         </ol>
                     </div>
                 </div>
             </div>
+
+            <!-- ============== Related Post ============== -->
+            <br><br><br><br>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img src="img/blog-img/b1.jpg" alt="">
+                            <!-- Catagory -->
+                            <div class="post-cta"><a href="catagory.php">travel</a></div>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="single-post.php" class="headline">
+                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                            </a>
+                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img src="img/blog-img/b2.jpg" alt="">
+                            <!-- Catagory -->
+                            <div class="post-cta"><a href="#">travel</a></div>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="#" class="headline">
+                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                            </a>
+                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img src="img/blog-img/b7.jpg" alt="">
+                            <!-- Catagory -->
+                            <div class="post-cta"><a href="#">travel</a></div>
+                            <!-- Video Button -->
+                            <a href="https://www.youtube.com/watch?v=IhnqEwFSJRg" class="video-btn"><i class="fa fa-play"></i></a>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="#" class="headline">
+                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                            </a>
+                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img src="img/blog-img/b1.jpg" alt="">
+                            <!-- Catagory -->
+                            <div class="post-cta"><a href="catagory.php">travel</a></div>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="single-post.php" class="headline">
+                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                            </a>
+                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img src="img/blog-img/b2.jpg" alt="">
+                            <!-- Catagory -->
+                            <div class="post-cta"><a href="#">travel</a></div>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="#" class="headline">
+                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                            </a>
+                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img src="img/blog-img/b7.jpg" alt="">
+                            <!-- Catagory -->
+                            <div class="post-cta"><a href="#">travel</a></div>
+                            <!-- Video Button -->
+                            <a href="https://www.youtube.com/watch?v=IhnqEwFSJRg" class="video-btn"><i class="fa fa-play"></i></a>
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="#" class="headline">
+                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                            </a>
+                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============== Related Post ============== -->
+
+
         </div>
     </div>
 

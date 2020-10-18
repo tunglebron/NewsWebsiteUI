@@ -59,7 +59,7 @@
                             </ul>
                             <div id="search-wrapper" class="">
                                 <form action="#">
-                                    <input type="text" id="search" placeholder="Search something...">
+                                    <input type="text" id="search" placeholder="Tìm kiếm tin tức">
                                     <div id="close-icon" style="display: none;" class=""></div>
                                     <input class="d-none" type="submit" value="">
                                 </form>

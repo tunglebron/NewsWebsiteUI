@@ -5,13 +5,20 @@ require "lib/db_function.php";
 ?>
 
 <?php
-//  $idLT = '1';
+//  Lấy thông tin 'idTL'
 if (isset($_GET['idTL'])) {
     $idTL = $_GET['idTL'];
     settype($idTL, "int");
 } else {
     $idTL = 1;
 }
+?>
+
+<?php
+// Lấy 5 tin nổi bật
+$tinNoiBat = tinNoiBat();
+// $row_tinNoiBat = mysqli_fetch_array($tinNoiBat);
+
 ?>
 
 <?php
@@ -27,9 +34,11 @@ $tinTheoTL = tinTheo_TheLoai($idTL);
 $dsMenu = DSMenu();
 ?>
 
+
+
 <?php
 // Phân trang tin
-$sotin1trang = 10;
+$sotin1trang = 11;
 if (isset($_GET['trang'])) {
     $trang = $_GET['trang'];
     settype($trang, 'int');
@@ -108,6 +117,15 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
 
                                 <!-- DS Menu -->
                             </ul>
+                            <!-- Tìm kiếm -->
+                            <div id="search-wrapper" class="">
+                                <form action="#">
+                                    <input type="text" id="search" placeholder="Tìm kiếm tin tức">
+                                    <div id="close-icon" style="display: none;" class=""></div>
+                                    <input class="d-none" type="submit" value="">
+                                </form>
+                            </div>
+                            <!-- Tìm kiếm -->
                         </div>
                     </nav>
                 </div>
@@ -149,7 +167,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                                                 <p> <?php echo $row_tinTheoTLPhanTrang['TomTat'] ?></p>
                                                 <!-- Post Meta -->
                                                 <div class="post-meta">
-                                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                                                    <p><a href="#" class="post-date"><?php echo $row_tinTheoTLPhanTrang['Ngay'] ?>.  Views: <?php echo $row_tinTheoTLPhanTrang['SoLanXem'] ?></a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -293,78 +311,38 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
 
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title" style="font-size: 20px;">Tin tức mới nhất</h5>
+                            <h5 class="title" style="font-size: 20px;">Tin tức nổi bật</h5>
                             <div class="widget-content">
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b11.jpg" alt="">
+                                <?php
+                                while ($row_tinNoiBat = mysqli_fetch_array($tinNoiBat)) {
+
+                                ?>
+
+                                    <!-- Single Blog Post -->
+                                    <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
+                                        <!-- Post Thumbnail -->
+                                        <div class="post-thumbnail">
+                                            <img src="upload/tintuc/<?php echo $row_tinNoiBat['urlHinh'] ?>" alt="">
+                                        </div>
+                                        <!-- Post Content -->
+                                        <div class="post-content">
+                                            <a href="single-blog.php?idTin=<?php echo $row_tinNoiBat['idTin'] ?>" class="headline">
+                                                <h5 class="mb-0"><?php echo $row_tinNoiBat['TieuDe'] ?></h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="#" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b13.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="#" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b14.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="#" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b10.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="#" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b12.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="#" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
+                                    <!-- Single Blog Post -->
+
+                                <?php
+                                }
+                                ?>
+
+
                             </div>
                         </div>
                         <!-- Kết nối mạng xã hội -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Stay Connected</h5>
+                            <h5 class="title">Connected</h5>
                             <div class="widget-content">
                                 <div class="social-area d-flex justify-content-between">
                                     <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
@@ -380,65 +358,40 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
 
                         <!-- Tin nổi bật -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Today’s Pick</h5>
+                            <h5 class="title">Tin xem nhiều</h5>
                             <div class="widget-content">
                                 <!-- Single Blog Post -->
-                                <div class="single-blog-post todays-pick">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b22.jpg" alt="">
+                                <?php
+                                //  Lấy thông tin 'idTL'
+                                if (isset($_GET['idTL'])) {
+                                    $idTL = $_GET['idTL'];
+                                    settype($idTL, "int");
+                                } else {
+                                    $idTL = 1;
+                                }
+                                //  Lấy thông tin 'idTL'
+                                $tinXemNhieu = tinXemNhieu_category($idTL);
+                                while ($row_tinXemNhieu = mysqli_fetch_array($tinXemNhieu)) {
+                                ?>
+
+                                    <div class="single-blog-post todays-pick">
+                                        <!-- Post Thumbnail -->
+                                        <div class="post-thumbnail">
+                                            <img src="upload/tintuc/<?php echo $row_tinXemNhieu['urlHinh'] ?>" alt="">
+                                        </div>
+                                        <!-- Post Content -->
+                                        <div class="post-content px-0 pb-0">
+                                            <a href="single-blog.php?idTin=<?php echo $row_tinXemNhieu['idTin'] ?>" class="headline">
+                                                <h5><?php echo $row_tinXemNhieu['TieuDe'] ?></h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content px-0 pb-0">
-                                        <a href="#" class="headline">
-                                            <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        </a>
-                                    </div>
-                                </div>
+
+                                <?php
+                                }
+                                ?>
                                 <!-- Single Blog Post -->
 
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post todays-pick">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b22.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content px-0 pb-0">
-                                        <a href="#" class="headline">
-                                            <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post todays-pick">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b22.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content px-0 pb-0">
-                                        <a href="#" class="headline">
-                                            <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post todays-pick">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <img src="img/blog-img/b22.jpg" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content px-0 pb-0">
-                                        <a href="#" class="headline">
-                                            <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
 
                             </div>
                         </div>
@@ -450,8 +403,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
             <div class="row">
                 <div class="col-12">
                     <div class="load-more-btn mt-50 text-center">
-                        <a href="catagory.php?idTL=5&amp;trang=5" class="btn world-btn">Trang Trước
-                        </a>
+                        <!-- <a href="catagory.php?idTL=5&amp;trang=5" class="btn world-btn">Trang Trước</a> -->
                         <a href="catagory.php?idTL=<?php echo $row_tenTheLoai['idTL'] ?>&trang=<?php echo ($trang + 1) ?>" class="btn world-btn">Xem thêm</a>
                     </div>
                 </div>
@@ -502,6 +454,8 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+
+
 
 
 
