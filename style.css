@@ -1919,14 +1919,17 @@ img.img-headline {
 }
 
 .headline-text {
-  /* padding-top: 15px;
-  background-color: aliceblue; */
+  padding-top: 15px;
+  background-color: aliceblue;
   padding-bottom: 15px;
-  padding-left: 15px;
-  height: 70px;
+  height: auto;
   word-wrap: break-word;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-.headline-text>p {
-  font-size: 0.5vh;
+.headline-text  p {
+  font-size: 20px;
+  font-weight: 600;
+  color: black;
+  text-align: center;
 }

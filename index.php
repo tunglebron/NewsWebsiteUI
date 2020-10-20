@@ -4,8 +4,6 @@ require  "lib/db_connect.php";
 require "lib/db_function.php";
 ?>
 
-
-
 <!DOCTYPE html>
 <html>
 
@@ -19,7 +17,7 @@ require "lib/db_function.php";
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -109,10 +107,16 @@ require "lib/db_function.php";
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <div class="headline-text" style="padding-left: 10px;">
-                                                <p>
-                                                    <h2><?php echo $row_tinTieuDe1['TieuDe'] ?></h2>
-                                                    <p>
+                                            <div class="headline-text">
+                                                <?php
+                                                $tinTieuDe1 = tinTieuDe1();
+                                                $row_tinTieuDe1 = mysqli_fetch_array($tinTieuDe1);
+                                                ?>
+                                                <a href="single-blog.php?idTin=<?php echo $row_tinTieuDe1['idTin'] ?>">
+                                                    <p> 
+                                                        <?php echo $row_tinTieuDe1['TieuDe'] ?>
+                                                    </p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -130,7 +134,7 @@ require "lib/db_function.php";
 
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title"><br></h5>
+                            <h5 class="title">Tin tức mới nhất</h5>
                             <div class="widget-content">
                                 <!-- Single Blog Post -->
                                 <?php
