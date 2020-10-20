@@ -14,6 +14,6 @@ if (!$connect) {
     die('Không thể kết nối: ' . mysqli_error($conn));
     exit();
    }
-   echo 'Kết nối CSDL thành công';
+//    echo 'Kết nối CSDL thành công';
     
 ?>

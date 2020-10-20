@@ -52,6 +52,13 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
 ?>
 
 
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -61,11 +68,8 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>News</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link href="style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    
+    <link rel="stylesheet" type="text/css" href="style.css?<?php echo time(); ?>" />
 
 </head>
 
@@ -139,7 +143,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                         <!-- Catagory Area -->
                         <div class="world-catagory-area">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="title"><?php echo $row_tenTheLoai['TenTL'] ?></li>
+                                <li class="title" style="color: brown; font-size: 22px;"><?php echo $row_tenTheLoai['TenTL'] ?></li>
                             </ul>
 
                             <div class="tab-content" id="myTabContent">
@@ -308,7 +312,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
 
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Tin tức mới nhất</h5>
+                            <h5 class="title" style="font-size: 22px;"><br></h5>
                             <div class="widget-content">
                                 <?php
                                 while ($row_tinNoiBat = mysqli_fetch_array($tinNoiBat)) {
@@ -319,7 +323,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                                     <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
                                         <!-- Post Thumbnail -->
                                         <div class="post-thumbnail">
-                                            <img src="upload/tintuc/<?php echo $row_tinNoiBat['urlHinh'] ?>" alt="">
+                                            <a href="single-blog.php"><img style="height: 80px;" src="upload/tintuc/<?php echo $row_tinNoiBat['urlHinh'] ?>" alt=""></a>
                                         </div>
                                         <!-- Post Content -->
                                         <div class="post-content">
@@ -371,16 +375,26 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                                 $tinXemNhieu = tinXemNhieu_category($idTL);
                                 while ($row_tinXemNhieu = mysqli_fetch_array($tinXemNhieu)) {
                                 ?>
-
+                                    <!--
                                     <div class="single-blog-post todays-pick">
-                                        <!-- Post Thumbnail -->
                                         <div class="post-thumbnail">
                                             <img src="upload/tintuc/<?php echo $row_tinXemNhieu['urlHinh'] ?>" alt="">
                                         </div>
-                                        <!-- Post Content -->
                                         <div class="post-content px-0 pb-0">
                                             <a href="single-blog.php?idTin=<?php echo $row_tinXemNhieu['idTin'] ?>" class="headline">
                                                 <h5><?php echo $row_tinXemNhieu['TieuDe'] ?></h5>
+                                            </a>
+                                        </div>
+                                    </div> -->
+                                    <div class="single-blog-post">
+                                        <!-- Post Thumbnail -->
+                                        <div class="post-thumbnail">
+                                            <img src="upload/tintuc/<?php echo $row_tinXemNhieu['urlHinh'] ?>" style="height:180px;" alt="">
+                                        </div>
+                                        <!-- Post Content -->
+                                        <div style="background-color: white;box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);" class="post-content">
+                                            <a href="single-blog.php?idTin=<?php echo $row_tinXemNhieu['idTin'] ?>" class="headline">
+                                                <h5 style="text-align:center;"><?php echo $row_tinXemNhieu['TieuDe'] ?></h5>
                                             </a>
                                         </div>
                                     </div>

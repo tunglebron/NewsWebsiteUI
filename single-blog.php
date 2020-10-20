@@ -41,11 +41,8 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>News</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link href="style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    
+    <link rel="stylesheet" href="style.css?<?php echo time(); ?>">
 </head>
 
 <body>
@@ -142,7 +139,7 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                     <div class="post-sidebar-area mb-100">
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Tin tức mới nhất</h5>
+                            <h5 class="title" style="font-size: 22px;"><br></h5>
                             <div class="widget-content">
                                 <!-- Single Blog Post -->
                                 <?php
@@ -155,7 +152,7 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                                     <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
                                         <!-- Post Thumbnail -->
                                         <div class="post-thumbnail">
-                                            <img src="upload/tintuc/<?php echo $row_tinNoiBat['urlHinh'] ?>" alt="">
+                                            <a href="single-blog.php"><img style="height: 80px;" src="upload/tintuc/<?php echo $row_tinNoiBat['urlHinh'] ?>" alt=""></a>
                                         </div>
                                         <!-- Post Content -->
                                         <div class="post-content">
@@ -202,25 +199,23 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
                                 $tinXemNhieu = tinXemNhieu_single($idTL);
                                 while ($row_tinXemNhieu = mysqli_fetch_array($tinXemNhieu)) {
                                 ?>
-
-                                    <div class="single-blog-post todays-pick">
+                                    <div class="single-blog-post">
                                         <!-- Post Thumbnail -->
                                         <div class="post-thumbnail">
-                                            <img src="upload/tintuc/<?php echo $row_tinXemNhieu['urlHinh'] ?>" alt="">
+                                            <img src="upload/tintuc/<?php echo $row_tinXemNhieu['urlHinh'] ?>" style="height:180px;" alt="">
                                         </div>
                                         <!-- Post Content -->
-                                        <div class="post-content px-0 pb-0">
+                                        <div style="background-color: white;box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);" class="post-content">
                                             <a href="single-blog.php?idTin=<?php echo $row_tinXemNhieu['idTin'] ?>" class="headline">
                                                 <h5><?php echo $row_tinXemNhieu['TieuDe'] ?></h5>
                                             </a>
                                         </div>
                                     </div>
-
                                 <?php
                                 }
                                 ?>
+                                
                                 <!-- Single Blog Post -->
-
                             </div>
                         </div>
                         <!-- Tin nổi bật -->
@@ -328,151 +323,78 @@ $row_chiTietTin = mysqli_fetch_array($chiTietTin);
 
             <!-- ============== Related Post ============== -->
             <br><br><br><br>
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b1.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="catagory.php">travel</a></div>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="single-post.php" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b2.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b7.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                            <!-- Video Button -->
-                            <a href="https://www.youtube.com/watch?v=IhnqEwFSJRg" class="video-btn"><i class="fa fa-play"></i></a>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
+                <?php
+                    $idTL = $row_chiTietTin['idTL'];
+                    $tinTheoTL_single = tinTheo_TheLoai_single1($idTL);
+                    while($row_tinTheoTL_single = mysqli_fetch_array($tinTheoTL_single)){
+                ?>
                 <div class="col-12 col-md-6 col-lg-4">
                     <!-- Single Blog Post -->
-                    <div class="single-blog-post">
+                    <div style="height: 420px" class="single-blog-post">
                         <!-- Post Thumbnail -->
                         <div class="post-thumbnail">
-                            <img src="img/blog-img/b1.jpg" alt="">
+                            <a href="single-blog.php"><img style="height: 200px;" src="upload/tintuc/<?php echo $row_tinTheoTL_single['urlHinh'] ?>" alt=""></a>
                             <!-- Catagory -->
-                            <div class="post-cta"><a href="catagory.php">travel</a></div>
                         </div>
                         <!-- Post Content -->
                         <div class="post-content">
-                            <a href="single-post.php" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                            <a href="single-blog.php?idTin=<?php echo $row_tinTheoTL_single['idTin'] ?>" class="headline">
+                                <h5><?php echo $row_tinTheoTL_single['TieuDe'] ?></h5>
                             </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
+                            <p><?php echo $row_tinTheoTL_single['TomTat'] ?></p>
                             <!-- Post Meta -->
                             <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                                <p><a href="#" class="post-author"></a>  <a href="#" class="post-date"><?php echo $row_tinTheoTL_single['Ngay'] ?>, Views: <?php echo $row_tinTheoTL_single['SoLanXem'] ?></a></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b2.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                    }
+                ?>
 
-                <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Blog Post -->
-                    <div class="single-blog-post">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <img src="img/blog-img/b7.jpg" alt="">
-                            <!-- Catagory -->
-                            <div class="post-cta"><a href="#">travel</a></div>
-                            <!-- Video Button -->
-                            <a href="https://www.youtube.com/watch?v=IhnqEwFSJRg" class="video-btn"><i class="fa fa-play"></i></a>
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <a href="#" class="headline">
-                                <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                            </a>
-                            <p>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...</p>
-                            <!-- Post Meta -->
-                            <div class="post-meta">
-                                <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
+
+            
+            <div class="row">
+                <?php
+                    $idTL = $row_chiTietTin['idTL'];
+                    $tinTheoTL_single = tinTheo_TheLoai_single2($idTL);
+                    while($row_tinTheoTL_single = mysqli_fetch_array($tinTheoTL_single)){
+                ?>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Single Blog Post -->
+                    <div style="height: 420px;" class="single-blog-post">
+                        <!-- Post Thumbnail -->
+                        <div class="post-thumbnail">
+                            <img style="height:200px;" src="upload/tintuc/<?php echo $row_tinTheoTL_single['urlHinh'] ?>" alt="">
+                            <!-- Catagory -->
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <a href="single-blog.php?idTin=<?php echo $row_tinTheoTL_single['idTin'] ?>" class="headline">
+                                <h5><?php echo $row_tinTheoTL_single['TieuDe'] ?></h5>
+                            </a>
+                            <p><?php echo $row_tinTheoTL_single['TomTat'] ?></p>
+                            <!-- Post Meta -->
+                            <div class="post-meta">
+                                <p><a href="#" class="post-author"></a>  <a href="#" class="post-date"><?php echo $row_tinTheoTL_single['Ngay'] ?>, Views: <?php echo $row_tinTheoTL_single['SoLanXem'] ?></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                    }
+                ?>
+
+               
+            </div>
+
 
             <!-- ============== Related Post ============== -->
 

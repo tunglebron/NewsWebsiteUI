@@ -4,6 +4,8 @@ require  "lib/db_connect.php";
 require "lib/db_function.php";
 ?>
 
+
+
 <!DOCTYPE html>
 <html>
 
@@ -13,11 +15,8 @@ require "lib/db_function.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>News</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link href="style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    
+    <link rel="stylesheet" type="text/css" href="style.css?<?php echo time(); ?>" />
 </head>
 
 <body>
@@ -89,10 +88,10 @@ require "lib/db_function.php";
                         <!-- Catagory Area -->
                         <div class="world-catagory-area">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="title">Tin Chính</li>
+                                <li class="title" style="color: brown; font-size: 22px;">Tin Chính</li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="world-tab-1" role="tabpanel" aria-labelledby="tab1">
+                                <div class="tab-pane fade show active" id="world-tab-1" style="box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);" role="tabpanel" aria-labelledby="tab1">
                                     <div class="row">
                                         <div class="col-12 col-md-12">
                                             <div class="headline">
@@ -107,16 +106,10 @@ require "lib/db_function.php";
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <div class="headline-text">
-                                                <?php
-                                                $tinTieuDe1 = tinTieuDe1();
-                                                $row_tinTieuDe1 = mysqli_fetch_array($tinTieuDe1);
-                                                ?>
-                                                <a href="single-blog.php?idTin=<?php echo $row_tinTieuDe1['idTin'] ?>">
-                                                    <p> 
-                                                        <?php echo $row_tinTieuDe1['TieuDe'] ?>
-                                                    </p>
-                                                </a>
+                                            <div class="headline-text" style="padding-left: 10px;">
+                                                <p>
+                                                    <?php echo $row_tinTieuDe1['TieuDe'] ?>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -134,18 +127,17 @@ require "lib/db_function.php";
 
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Tin tức mới nhất</h5>
+                            <h5 class="title" style="font-size: 22px;"><br></h5>
                             <div class="widget-content">
                                 <!-- Single Blog Post -->
                                 <?php
                                 $tinTieuDe2 = tinTieuDe2();
                                 while ($row_tinTieuDe2 = mysqli_fetch_array($tinTieuDe2)) {
-
                                 ?>
                                     <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
                                         <!-- Post Thumbnail -->
                                         <div class="post-thumbnail">
-                                            <a href="single-blog.php"><img src="upload/tintuc/<?php echo $row_tinTieuDe2['urlHinh'] ?>" alt=""></a>
+                                            <a href="single-blog.php"><img style="height: 80px;" src="upload/tintuc/<?php echo $row_tinTieuDe2['urlHinh'] ?>" alt=""></a>
                                         </div>
                                         <!-- Post Content -->
                                         <div class="post-content">
@@ -154,7 +146,6 @@ require "lib/db_function.php";
                                             </a>
                                         </div>
                                     </div>
-
                                 <?php
                                 }
                                 ?>
@@ -163,9 +154,22 @@ require "lib/db_function.php";
                             </div>
                         </div>
                         <!-- Widget Area -->
-
-                        <!-- Widget Area -->
-
+                        <!-- Kết nối mạng xã hội -->
+                        <div class="sidebar-widget-area">
+                            <h5 class="title">Connected</h5>
+                            <div class="widget-content">
+                                <div class="social-area d-flex justify-content-between">
+                                    <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                    <a href="https://twitter.com/?lang=vi" target="_blank"><i class="fa fa-twitter"></i></a>
+                                    <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest"></i></a>
+                                    <a href="https://vimeo.com/" target="_blank"><i class="fa fa-vimeo"></i></a>
+                                    <a href="https://www.instagram.com/?hl=vi" target="_blank"><i class="fa fa-instagram"></i></a>
+                                    <a href="https://www.google.com/" target="_blank"><i class="fa fa-google"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kết nối mạng xã hội -->
+                        
                     </div>
                 </div>
             </div>
@@ -185,7 +189,7 @@ require "lib/db_function.php";
                         <div class="single-blog-post post-style-3 mt-50 wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
                             <!-- Post Thumbnail -->
                             <div class="post-thumbnail">
-                                <a href="single-blog.php"><img src="upload/tintuc/<?php echo $row_timMoi_duoiTinChinh['urlHinh'] ?>" alt=""></a>
+                                <a href="single-blog.php"><img style="height: 200px;" src="upload/tintuc/<?php echo $row_timMoi_duoiTinChinh['urlHinh'] ?>" alt=""></a>
                                 <!-- Post Content -->
                                 <div class="post-content d-flex align-items-center justify-content-between">
                                     <!-- Catagory -->
@@ -225,7 +229,7 @@ require "lib/db_function.php";
                         <div class="single-blog-post post-style-3 mt-50 wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
                             <!-- Post Thumbnail -->
                             <div class="post-thumbnail">
-                                <a href="single-blog.php"><img src="upload/tintuc/<?php echo $row_timMoi_duoiTinChinh['urlHinh'] ?>" alt=""></a>
+                                <a href="single-blog.php"><img style="height: 200px;" src="upload/tintuc/<?php echo $row_timMoi_duoiTinChinh['urlHinh'] ?>" alt=""></a>
                                 <!-- Post Content -->
                                 <div class="post-content d-flex align-items-center justify-content-between">
                                     <!-- Catagory -->
@@ -262,7 +266,7 @@ require "lib/db_function.php";
                         <div class="col-12 col-lg-8">
                             <div class="title">
                                 <a href="catagory.php?idTL=<?php echo $row_tenTheLoai['idTL'] ?>">
-                                    <h5><?php echo $row_tenTheLoai['TenTL'] ?></h5>
+                                    <h5 style="font-size: 20px; color: brown;"><?php echo $row_tenTheLoai['TenTL'] ?></h5>
                                 </a>
                             </div>
                             
@@ -272,15 +276,16 @@ require "lib/db_function.php";
                                 while($row_tinMoiTheoTL = mysqli_fetch_array($tinTheoTL)){
                             ?>
 
-                            <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
+                            <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;
+                            height: 161px;">
                                 <!-- Post Thumbnail -->
                                 <div class="post-thumbnail">
-                                    <img src="upload/tintuc/<?php echo $row_tinMoiTheoTL['urlHinh'] ?>" alt="">
+                                    <img img style="height: 130px; width: 200px;" src="upload/tintuc/<?php echo $row_tinMoiTheoTL['urlHinh'] ?>" alt="">
                                 </div>
                                 <!-- Post Content -->
                                 <div class="post-content">
                                     <a href="single-blog.php?idTin=<?php echo $row_tinMoiTheoTL['idTin'] ?>" class="headline">
-                                        <h5><?php echo $row_tinMoiTheoTL['TieuDe'] ?></h5>
+                                        <h5 ><?php echo $row_tinMoiTheoTL['TieuDe'] ?></h5>
                                     </a>
                                     <p><?php echo $row_tinMoiTheoTL['TomTat'] ?></p>
                                     <!-- Post Meta -->

@@ -9,7 +9,7 @@ function MotTinNgauNhien()
 function chiTietMotTin($idTin)
 {
     global $connect;
-    $qr = "SELECT * FROM vutraining.tin 
+    $qr = "SELECT * FROM tin 
         WHERE idTin = $idTin 
         ORDER BY RAND() LIMIT 1";
     return mysqli_query($connect, $qr);
@@ -112,7 +112,7 @@ function tinXemNhieu_search()
     global $connect;
     $qr = "SELECT * FROM `tin`   
     ORDER BY SoLanXem  DESC
-    LIMIT 5";
+    LIMIT 4";
     return mysqli_query($connect, $qr);
 }
 
@@ -161,5 +161,25 @@ function TinMoiTheoTheLoai_index($idTL)
     global $connect;
     $qr = "SELECT * FROM tin WHERE idTL = '$idTL' ORDER BY idTin DESC
         LIMIT 4";
+    return mysqli_query($connect, $qr);
+}
+
+function tinTheo_TheLoai_single1($idTL)
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin` 
+        WHERE idTL = '$idTL'
+        ORDER BY `idTin`  DESC
+        limit 0,3";  // số tin hiện ra
+    return mysqli_query($connect, $qr);
+}
+
+function tinTheo_TheLoai_single2($idTL)
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin` 
+        WHERE idTL = '$idTL'
+        ORDER BY `idTin`  DESC
+        limit 3,3";  // số tin hiện ra
     return mysqli_query($connect, $qr);
 }
