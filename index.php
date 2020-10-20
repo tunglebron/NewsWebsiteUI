@@ -1,68 +1,75 @@
 <?php
-    // kết nối Database
-    require  "lib/db_connect.php";
-    require "lib/db_function.php";
+// kết nối Database
+require  "lib/db_connect.php";
+require "lib/db_function.php";
 ?>
 
 
 
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>News</title> 
+    <title>News</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> 
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
     <div id="preloader">
         <div class="preload-content">
             <div id="world-load"></div>
         </div>
-    </div>   
+    </div>
     <header class="header-area sticky">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-lg">
                         <!-- Logo -->
-                        <a class="navbar-brand" href="index.php"><img class="pageLogo" src="image/logo1_200x70.png" alt="Logo"></a>
+                        <a class="navbar-brand" href="./"><img class="pageLogo" src="image/logo1_200x70.png" alt="Logo"></a>
                         <!-- Navbar Toggler -->
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button> 
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <!-- Navbar -->
                         <div class="collapse navbar-collapse" id="worldNav">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.php">Trang Chủ<span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="./">Trang Chủ<span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="catagory.php">Thời Sự</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="catagory.php">Thể Thao</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="catagory.php">Giải Trí</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="catagory.php">Sức Khỏe</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="catagory.php">Du Lịch</a>
-                                </li>
+                                <!-- DS Menu -->
+                                <?php
+                                $dsMenu = DSMenu();
+                                while ($row_dsMenu = mysqli_fetch_array($dsMenu)) {
+                                    $idTL = $row_dsMenu['idTL'];
+                                ?>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="catagory.php?idTL=<?php echo $row_dsMenu['idTL'] ?>"><?php echo $row_dsMenu['TenTL'] ?></a>
+
+                                        <!-- chi tiết thể loại -->
+
+                                        <!-- chi tiết thể loại -->
+
+
+                                    </li>
+                                <?php
+                                }
+                                ?>
+
+                                <!-- DS Menu -->
                             </ul>
                             <!-- Tìm kiếm -->
                             <div id="search-wrapper" class="">
                                 <form action="search-page.php" method="GET" target="_self">
                                     <input type="text" id="search" placeholder="Tìm kiếm tin tức" name="search" value="" require>
                                     <div id="close-icon" style="display: none;" class=""></div>
-                                    <input class="d-none" type="submit" value="" >
+                                    <input class="d-none" type="submit" value="">
                                     <!-- tạo tìm kiếm search='timkiem' trên url -- ?name=value>
                                     <!-- <input type="hidden" name="search" value="timkiem"> -->
                                 </form>
@@ -89,19 +96,23 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="world-tab-1" role="tabpanel" aria-labelledby="tab1">
                                     <div class="row">
-                                        <div class="col-12 col-md-12"> 
+                                        <div class="col-12 col-md-12">
                                             <div class="headline">
                                                 <!-- Anh tin chinh  -->
-                                                <a href="single-blog.php" class="thumb thumb-5x3">
-                                                    <img src="image/headline_2.jpg">
+                                                <?php
+                                                $tinTieuDe1 = tinTieuDe1();
+                                                $row_tinTieuDe1 = mysqli_fetch_array($tinTieuDe1);
+                                                ?>
+                                                <a href="single-blog.php?idTin=<?php echo $row_tinTieuDe1['idTin'] ?>" class="thumb thumb-5x3">
+                                                    <img src="upload/tintuc/<?php echo $row_tinTieuDe1['urlHinh'] ?>">
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <div class="headline-text">
+                                            <div class="headline-text" style="padding-left: 10px;">
                                                 <p>
-                                                    <h2>Máy bay trực thăng được điều động cứu người bị nạn</h2>
-                                                <p>
+                                                    <h2><?php echo $row_tinTieuDe1['TieuDe'] ?></h2>
+                                                    <p>
                                             </div>
                                         </div>
                                     </div>
@@ -116,587 +127,177 @@
                 <div class="col-12 col-md-8 col-lg-4">
                     <div class="post-sidebar-area wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
                         <!-- Widget Area -->
-                        
+
                         <!-- Widget Area -->
                         <div class="sidebar-widget-area">
-                            <h5 class="title">Tin tức mới nhất</h5>
+                            <h5 class="title"><br></h5>
                             <div class="widget-content">
                                 <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b11.jpg" alt=""></a>
+                                <?php
+                                $tinTieuDe2 = tinTieuDe2();
+                                while ($row_tinTieuDe2 = mysqli_fetch_array($tinTieuDe2)) {
+
+                                ?>
+                                    <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
+                                        <!-- Post Thumbnail -->
+                                        <div class="post-thumbnail">
+                                            <a href="single-blog.php"><img src="upload/tintuc/<?php echo $row_tinTieuDe2['urlHinh'] ?>" alt=""></a>
+                                        </div>
+                                        <!-- Post Content -->
+                                        <div class="post-content">
+                                            <a href="single-blog.php" class="headline">
+                                                <h5 class="mb-0"><?php echo $row_tinTieuDe2['TieuDe'] ?></h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
+
+                                <?php
+                                }
+                                ?>
                                 <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b13.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b14.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b10.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Single Blog Post -->
-                                <div class="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                                    <!-- Post Thumbnail -->
-                                    <div class="post-thumbnail">
-                                        <a href="single-blog.php"><img src="img/blog-img/b12.jpg" alt=""></a>
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <a href="single-blog.php" class="headline">
-                                            <h5 class="mb-0">How Did van Gogh’s Turbulent Mind Depict One of the Most</h5>
-                                        </a>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <!-- Widget Area -->
-                        
+
                         <!-- Widget Area -->
-                        
+
                     </div>
                 </div>
             </div>
+            <!-- Tin mới khác tin chính -->
 
             <div class="row justify-content-center">
                 <!-- ========== Single Blog Post ========== -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-blog-post post-style-3 mt-50 wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <a href="single-blog.php"><img src="img/blog-img/b4.jpg" alt=""></a>
-                            <!-- Post Content -->
-                            <div class="post-content d-flex align-items-center justify-content-between">
-                                <!-- Catagory -->
-                                <div class="post-tag"><a href="catagory.php">Thời Sự</a></div>
-                                <!-- Headline -->
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                <?php
+                for ($i = 1; $i <= 3; $i++) {
+                    $idTL = $i;
+                    $tenTheLoai = tenTheLoai($idTL);
+                    $row_tenTheLoai = mysqli_fetch_array($tenTheLoai);
+                    $tinMoi_duoiTinChinh = tinMoiNhat_duoiTinChinh13($idTL);
+                    $row_timMoi_duoiTinChinh = mysqli_fetch_array($tinMoi_duoiTinChinh);
+                ?>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="single-blog-post post-style-3 mt-50 wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
+                            <!-- Post Thumbnail -->
+                            <div class="post-thumbnail">
+                                <a href="single-blog.php"><img src="upload/tintuc/<?php echo $row_timMoi_duoiTinChinh['urlHinh'] ?>" alt=""></a>
+                                <!-- Post Content -->
+                                <div class="post-content d-flex align-items-center justify-content-between">
+                                    <!-- Catagory -->
+                                    <div class="post-tag"><a href="catagory.php?idTL=<?php echo $row_tenTheLoai['idTL'] ?>"><?php echo $row_tenTheLoai['TenTL'] ?></a></div>
+                                    <!-- Headline -->
+                                    <a href="single-blog.php?idTin=<?php echo $row_timMoi_duoiTinChinh['idTin'] ?>" class="headline">
+                                        <h5><?php echo $row_timMoi_duoiTinChinh['TieuDe'] ?></h5>
+                                    </a>
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <p><a href="#" class="post-date"><?php echo $row_timMoi_duoiTinChinh['Ngay'] ?> :Views <?php echo $row_timMoi_duoiTinChinh['SoLanXem'] ?></a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!-- ========== Single Blog Post ========== -->
+                <?php
+                }
+                ?>
+            </div>
+
+
+
+
+            <div class="row justify-content-center">
                 <!-- ========== Single Blog Post ========== -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-blog-post post-style-3 mt-50 wow fadeInUpBig" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUpBig;">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <a href="single-blog.php"><img src="img/blog-img/b5.jpg" alt=""></a>
-                            <!-- Post Content -->
-                            <div class="post-content d-flex align-items-center justify-content-between">
-                                <!-- Catagory -->
-                                <div class="post-tag"><a href="catagory.php">Thể Thao</a></div>
-                                <!-- Headline -->
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                <?php
+                for ($i = 4; $i <= 6; $i++) {
+                    $idTL = $i;
+                    $tenTheLoai = tenTheLoai($idTL);
+                    $row_tenTheLoai = mysqli_fetch_array($tenTheLoai);
+                    $tinMoi_duoiTinChinh = tinMoiNhat_duoiTinChinh46($idTL);
+                    $row_timMoi_duoiTinChinh = mysqli_fetch_array($tinMoi_duoiTinChinh);
+                ?>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="single-blog-post post-style-3 mt-50 wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
+                            <!-- Post Thumbnail -->
+                            <div class="post-thumbnail">
+                                <a href="single-blog.php"><img src="upload/tintuc/<?php echo $row_timMoi_duoiTinChinh['urlHinh'] ?>" alt=""></a>
+                                <!-- Post Content -->
+                                <div class="post-content d-flex align-items-center justify-content-between">
+                                    <!-- Catagory -->
+                                    <div class="post-tag"><a href="catagory.php?idTL=<?php echo $row_tenTheLoai['idTL'] ?>"><?php echo $row_tenTheLoai['TenTL'] ?></a></div>
+                                    <!-- Headline -->
+                                    <a href="single-blog.php?idTin=<?php echo $row_timMoi_duoiTinChinh['idTin'] ?>" class="headline">
+                                        <h5><?php echo $row_timMoi_duoiTinChinh['TieuDe'] ?></h5>
+                                    </a>
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <p><a href="#" class="post-date"><?php echo $row_timMoi_duoiTinChinh['Ngay'] ?> :Views <?php echo $row_timMoi_duoiTinChinh['SoLanXem'] ?></a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- ========== Single Blog Post ========== -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-blog-post post-style-3 mt-50 wow fadeInUpBig" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUpBig;">
-                        <!-- Post Thumbnail -->
-                        <div class="post-thumbnail">
-                            <a href="single-blog.php"><img src="img/blog-img/b6.jpg" alt=""></a>
-                            <!-- Post Content -->
-                            <div class="post-content d-flex align-items-center justify-content-between">
-                                <!-- Catagory -->
-                                <div class="post-tag"><a href="catagory.php">Giải Trí</a></div>
-                                <!-- Headline -->
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                    <!-- ========== Single Blog Post ========== -->
+                <?php
+                }
+                ?>
+            </div>
+
+            <!-- Tin mới khác tin chính -->
+
+            <!-- Trang tin -->
+            <?php
+            for ($i = 1; $i <= 6; $i++) {
+                $idTL = $i;
+                $tenTheLoai = tenTheLoai($idTL);
+                $row_tenTheLoai = mysqli_fetch_array($tenTheLoai);
+            ?>
+                <div class="world-latest-articles">
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <div class="title">
+                                <a href="catagory.php?idTL=<?php echo $row_tenTheLoai['idTL'] ?>">
+                                    <h5><?php echo $row_tenTheLoai['TenTL'] ?></h5>
                                 </a>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
+                            </div>
+                            
+                            <!-- Single Blog Post -->
+                            <?php
+                                $tinTheoTL = TinMoiTheoTheLoai_index($idTL);
+                                while($row_tinMoiTheoTL = mysqli_fetch_array($tinTheoTL)){
+                            ?>
+
+                            <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
+                                <!-- Post Thumbnail -->
+                                <div class="post-thumbnail">
+                                    <img src="upload/tintuc/<?php echo $row_tinMoiTheoTL['urlHinh'] ?>" alt="">
+                                </div>
+                                <!-- Post Content -->
+                                <div class="post-content">
+                                    <a href="single-blog.php?idTin=<?php echo $row_tinMoiTheoTL['idTin'] ?>" class="headline">
+                                        <h5><?php echo $row_tinMoiTheoTL['TieuDe'] ?></h5>
+                                    </a>
+                                    <p><?php echo $row_tinMoiTheoTL['TomTat'] ?></p>
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <p><a href="#" class="post-date"><?php echo $row_tinMoiTheoTL['Ngay'] ?>, Views:  <?php echo $row_tinMoiTheoTL['SoLanXem'] ?></a></p>
+                                    </div>
                                 </div>
                             </div>
+
+                            <?php
+                                }
+                            ?>
+                            <!-- Single Blog Post -->
+                           
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="world-latest-articles">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <div class="title">
-                            <a href="catagory.php"><h5>Thời Sự</h5></a>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b18.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b19.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b20.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b21.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                   
-                </div>
-            </div>
-
-            <div class="world-latest-articles">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <div class="title">
-                            <a href="catagory.php"><h5>Thể Thao</h5></a>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b18.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b19.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b20.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b21.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-
-            <div class="world-latest-articles">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <div class="title">
-                            <a href="catagory.php"><h5>Giải Trí</h5></a>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b18.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b19.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b20.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b21.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-
-            <div class="world-latest-articles">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <div class="title">
-                            <a href="catagory.php"><h5>Sức Khỏe</h5></a>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b18.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b19.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b20.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b21.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-
-            <div class="world-latest-articles">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <div class="title">
-                            <a href="catagory.php"><h5>Du Lịch</h5></a>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b18.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b19.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b20.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Blog Post -->
-                        <div class="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
-                            <!-- Post Thumbnail -->
-                            <div class="post-thumbnail">
-                                <img src="img/blog-img/b21.jpg" alt="">
-                            </div>
-                            <!-- Post Content -->
-                            <div class="post-content">
-                                <a href="single-blog.php" class="headline">
-                                    <h5>How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                </a>
-                                <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                <!-- Post Meta -->
-                                <div class="post-meta">
-                                    <p><a href="#" class="post-date">Sep 29, 2017 at 9:48 am</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-        
+            <?php
+            }
+            ?>
+            <!-- Trang tin -->
 
         </div>
     </div>
@@ -708,23 +309,51 @@
             <div class="row">
                 <div class="col-12 col-md-4">
                     <div class="footer-single-widget">
-                        <a href="index.php"><img src="image/logo1_200x70.png" alt=""></a>
+                        <a href="./"><img src="image/logo1_200x70.png" alt=""></a>
                         <div class="copywrite-text mt-30">
+                            <!-- mô tả footer  -->
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                © Copyright <script>
+                                    document.write(new Date().getFullYear());
+                                </script>, All rights reserved <br>
+                                ® <i class="fa fa-heart-o" aria-hidden="true"></i><a href="https://docs.google.com/spreadsheets/d/1tbTIXoVWm3AZM5cjC5AMx9pFMRfie6xA1JGcuLVj9R8/edit#gid=0&range=A76:A79" target="_blank">Team21 </a>
+                                giữ bản quyền Website này!
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    <div class="footer-single-widget">
+                <div class="col-12 col-md-4">
+                    <div class="footer-single-widget" style="text-align: center;">
                         <ul class="footer-menu d-flex justify-content-between">
-                            <li class="nav-item active"><a href="index.php">Trang Chủ</a></li>
-                            <li class="nav-item active"><a href="catagory.php">Thời Sự</a></li>
-                            <li class="nav-item active"><a href="catagory.php">Thể Thao</a></li>
-                            <li class="nav-item active"><a href="catagory.php">Giải Trí</a></li>
-                            <li class="nav-item active"><a href="catagory.php">Sức Khỏe</a></li>
-                            <li class="nav-item active"><a href="catagory.php">Du Lịch</a></li>
+                            <!-- Menu -->
+                            <?php
+                            $dsMenu = DSMenu();
+                            while ($row_dsMenu = mysqli_fetch_array($dsMenu)) {
+                            ?>
+
+                                <li class="nav-item active"><a href="catagory.php?idTL=<?php echo $row_dsMenu['idTL'] ?>"><?php echo $row_dsMenu['TenTL'] ?></a></li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                     </div>
+
                 </div>
+                <!-- liên hệ  -->
+                <div class="col-12 col-md-4">
+                    <div class="footer-single-widget" style="margin-left: 100px;">
+
+                        <h5>Liên hệ</h5>
+                        <h6>Email: <a href="https://docs.google.com/spreadsheets/d/1tbTIXoVWm3AZM5cjC5AMx9pFMRfie6xA1JGcuLVj9R8/edit#gid=0&range=A76:A79">Team21@vnu.edu.vn</a></h6>
+                        <!-- <form action="#" method="post">
+                            <input type="email" name="email" id="email" placeholder="Enter your mail">
+                            <button type="button"><i class="fa fa-arrow-right"></i></button>
+                        </form> -->
+                    </div>
+                </div>
+                <!-- liên hệ  -->
             </div>
         </div>
     </footer>
@@ -738,4 +367,6 @@
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
-</body></html>
+</body>
+
+</html>

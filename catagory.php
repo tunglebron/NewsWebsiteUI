@@ -1,3 +1,4 @@
+
 <?php
 // kết nối Database
 require  "lib/db_connect.php";
@@ -71,7 +72,9 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet"  href="style.css"> -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 
 <body>
@@ -359,6 +362,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                         <!-- Kết nối mạng xã hội -->
 
                         <!-- Tin nổi bật -->
+                        
                         <div class="sidebar-widget-area">
                             <h5 class="title">Tin xem nhiều</h5>
                             <div class="widget-content">
@@ -421,16 +425,26 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
             <div class="row">
                 <div class="col-12 col-md-4">
                     <div class="footer-single-widget">
-                        <a href="./"><img src="image/logo1_200x70.png" alt=""></a>
+                        <a href="index.php"><img src="image/logo1_200x70.png" alt=""></a>
                         <div class="copywrite-text mt-30">
+                            <!-- mô tả footer  -->
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                © Copyright <script>
+                                    document.write(new Date().getFullYear());
+                                </script>, All rights reserved <br>
+                                ® <i class="fa fa-heart-o" aria-hidden="true"></i><a href="http://uet.vnu.edu.vn/" target="_blank">Team21 </a>
+                                giữ bản quyền Website này!
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    <div class="footer-single-widget">
+                <div class="col-12 col-md-4">
+                    <div class="footer-single-widget" style="text-align: center;">
                         <ul class="footer-menu d-flex justify-content-between">
-                            <!-- Menu -->
-                            <?php
+                             <!-- Menu -->
+                             <?php
                             $dsMenu = DSMenu();
                             while ($row_dsMenu = mysqli_fetch_array($dsMenu)) {
                             ?>
@@ -439,10 +453,22 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
                             <?php
                             }
                             ?>
-
                         </ul>
                     </div>
                 </div>
+                <!-- liên hệ  -->
+                <div class="col-12 col-md-4">
+                    <div class="footer-single-widget" style="margin-left: 100px;">
+                        
+                        <h5 >Liên hệ</h5>
+                        <h6>Email: <a href="#" >Team21@vnu.edu.vn</a></h6>
+                        <!-- <form action="#" method="post">
+                            <input type="email" name="email" id="email" placeholder="Enter your mail">
+                            <button type="button"><i class="fa fa-arrow-right"></i></button>
+                        </form> -->
+                    </div>
+                </div>
+                <!-- liên hệ  -->
             </div>
         </div>
     </footer>
@@ -460,7 +486,7 @@ $tinTheoTrang = TinTheoTheLoai_PhanTrang($idTL, $from, $sotin1trang);
 
 
 
-
+                            
 </body>
 
 </html>

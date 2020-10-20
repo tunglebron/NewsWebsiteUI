@@ -71,9 +71,18 @@ function tinNoiBat()
     global $connect;
     $qr = "SELECT * FROM `tin` 
      WHERE TinNoiBat = 1  
-    ORDER BY `tin`.`idTin`  DESC
+    ORDER BY Rand(),`tin`.`idTin`  DESC
     -- WHERE idTin >= 100 
     -- ORDER BY  RAND() ,`tin`.`idTin`  DESC
+    LIMIT 5";
+    return mysqli_query($connect, $qr);
+}
+
+function tinXemNhieu_index()
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin` 
+    ORDER BY SoLanXem  DESC
     LIMIT 5";
     return mysqli_query($connect, $qr);
 }
@@ -104,5 +113,53 @@ function tinXemNhieu_search()
     $qr = "SELECT * FROM `tin`   
     ORDER BY SoLanXem  DESC
     LIMIT 5";
+    return mysqli_query($connect, $qr);
+}
+
+function tinTieuDe1()
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin` 
+    WHERE TinChinh = 1
+    ORDER BY idTin DESC
+    LIMIT 1";
+    return mysqli_query($connect, $qr);
+} 
+
+function tinTieuDe2()
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin` 
+    WHERE TinChinh = 1
+    ORDER BY idTL
+    LIMIT 1,5";
+    return mysqli_query($connect, $qr);
+}
+
+function tinMoiNhat_duoiTinChinh13($idTL)
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin` 
+    WHERE TinChinh <> 1 AND idTL = '$idTL'
+    ORDER BY idTin DESC
+    LIMIT 1";
+    return mysqli_query($connect, $qr);
+}
+
+function tinMoiNhat_duoiTinChinh46($idTL)
+{
+    global $connect;
+    $qr = "SELECT * FROM `tin` 
+    WHERE TinChinh <> 1 AND idTL = '$idTL'
+    ORDER BY idTin DESC
+    LIMIT 1";
+    return mysqli_query($connect, $qr);
+}
+
+function TinMoiTheoTheLoai_index($idTL)
+{
+    global $connect;
+    $qr = "SELECT * FROM tin WHERE idTL = '$idTL' ORDER BY idTin DESC
+        LIMIT 4";
     return mysqli_query($connect, $qr);
 }

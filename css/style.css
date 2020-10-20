@@ -549,7 +549,12 @@ img {
       font-size: 18px;
       margin-bottom: 10px; }
     .single-blog-post .post-content p {
-      margin-bottom: 20px; }
+      margin-bottom: 20px;
+      overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+     }
     .single-blog-post .post-content .post-meta p {
       margin-bottom: 0;
       font-size: 12px; }
